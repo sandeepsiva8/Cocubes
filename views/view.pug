@@ -1,0 +1,541 @@
+doctype html
+html
+  head(lang='en')
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+    meta(name='viewport', content='width=device-width,initial-scale=1.0')
+    link(href='favicon.ico', rel='icon', type='image/icon')
+    title Cocubes Data Analysis
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    link(href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css', rel='stylesheet')
+    link(href='https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css', rel='stylesheet')
+    link(href='stylesheets/style.css', rel='stylesheet')
+    link(href='stylesheets/style1.css', rel='stylesheet')
+    link(href='stylesheets/font-awesome/css/font-awesome.min.css', rel='stylesheet')
+    //- //if lt IE 9
+    //- script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+    //- script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+    style.
+      .tab {
+          overflow: hidden;
+          border: 1px solid #ccc;
+          background-color: #B83E44;
+          color:white;
+      }
+      .tab button {
+          background-color: inherit;
+          float: left;
+          border: none;
+          width:100%;
+          outline: none;
+          cursor: pointer;
+          padding: 14px 16px;
+          transition: 0.3s;
+          font-size: 17px;
+          border-left:1px solid #ccc;
+      }
+      .tab button:hover {
+          background-color: white;
+          color:#B83E44;
+          font-weight:bold;
+      }
+      .tab button:focus {
+          background-color: white;
+          color:#B83E44;
+          font-weight:bold;
+      }
+
+      .tab .active button {
+          background-color: white;
+          color:#B83E44;
+          font-weight:bold;
+      }
+      .logout{
+      border: 1px solid;
+      text-align:center;
+      background-color: maroon;
+      color:white;
+      font-size:18px;
+      }
+      .button1 {
+      background-color: maroon;
+      border: none;
+      color: white;
+      float:right;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+      }
+      .verticalnav{
+      float:left;
+      color: white;
+      padding:2px 8px 10px;
+      font-size: 100%;
+      font-weight: bold;
+      }
+
+     .verticalnav a:hover {
+      color: black;
+      }
+
+
+  body
+    section#container
+      // header start
+      header.header.black-bg
+        .sidebar-toggle-box
+          .fa.fa-bars.tooltips(data-placement='right', data-original-title='Toggle Navigation')
+        // logo start
+        a.logo(href='#')
+          b
+            img(src='images/modified.png',style='background-color:#fff; height:55px;width:100px;margin-top:-13px')
+        // logo end
+        .top-menu
+          ul.nav.pull-right.top-menu
+            li
+              a.logout(href='logout') Logout
+      // header end
+      // sidebar start
+      aside
+        #sidebar.nav-collapse
+          // sidebar menu start
+          ul#nav-accordion.sidebar-menu
+            p.centered
+              a(href='#')
+                img.img-circle(src='images/user.png', width='80')
+            h5.centered 
+              p Cocubes Data Analysis
+            li.active
+              a(data-toggle='tab', href='#home')
+                i.fa.fa-address-card
+                span Home
+            li.sub-menu
+              a(data-toggle='tab', href='#fb')
+                i.fa.fa-bars
+                span Feedback
+          // sidebar menu end
+      // sidebar end
+      // main content start
+      section#main-content
+        section.wrapper.site-min-height
+          .row.mt
+            .col-lg-12
+              .tab-content
+                #home.tab-pane.fade.in.active
+                  .col-md-12.clearfix
+                    // Branch Selection
+                    section.col-lg-4.col-md-5.col-sm-6.col-xs-12.pull-left.col-md-offset-2.search-div.min-height
+                      .row
+                        .well.well-sm.bg-info.text-center
+                          | Branch Selection
+                      .row
+                        .material-switch
+                          | Select all engineering colleges  
+                          input#all_colleges(name='all_colleges', type='checkbox', onclick='college_select_all()')
+                          label.label-info(for='all_colleges')
+                        .checkbox
+                          label(style='font-size: 1.0em')
+                            input#aec(type='checkbox', value='aec', onclick='college_selection_single()')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            |                 AEC
+                          label(style='font-size: 1.0em')
+                            input#acet(type='checkbox', value='acet', onclick='college_selection_single()')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            |                 ACET
+                          label(style='font-size: 1.0em')
+                            input#acoe(type='checkbox', value='acoe', onclick='college_selection_single()')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            |                 ACOE
+                      .row(style='padding-bottom:110px')
+                        .material-switch
+                          | Select all Courses in B.Tech  
+                          input#all_courses(name='all_courses', type='checkbox', onclick='courses_all_selection()')
+                          label.label-info(for='all_courses')
+                        .checkbox
+                          label(style='font-size: 1.0em')
+                            input#cse(type='checkbox', value='cse', onclick='course_single_selection()')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            |                   CSE&nbsp;&nbsp;&nbsp;&nbsp;
+                          label(style='font-size: 1.0em')
+                            input#it(type='checkbox', value='it', onclick='course_single_selection()')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            |                   IT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          label(style='font-size: 1.0em')
+                            input#ece(type='checkbox', value='ece', onclick='course_single_selection()')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            |                   ECE
+                          label(style='font-size: 1.0em')
+                            input#eee(type='checkbox', value='eee', onclick='course_single_selection()')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            |                   EEE
+                          label(style='font-size: 1.0em')
+                            input#mca(type='checkbox', value='mca', onclick='course_single_selection()')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            |                   MCA
+                          br
+                          br                        
+                          label(style='font-size: 1.0em')
+                            input#civil(type='checkbox', value='civil', onclick='course_single_selection()')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            |                   CE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          label(style='font-size: 1.0em')
+                            input#pt(type='checkbox', value='pt', onclick='course_single_selection()')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            |                   PT&nbsp;&nbsp;&nbsp;&nbsp;                       
+                          label(style='font-size: 1.0em')
+                            input#me(type='checkbox', value='me', onclick='course_single_selection()')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            |                   ME&nbsp;                        
+                          label(style='font-size: 1.0em')
+                            input#agri(type='checkbox', value='agri', onclick='course_single_selection()')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            |                   AgE
+                          label(style='font-size: 1.0em')
+                            input#min(type='checkbox', value='agri', onclick='course_single_selection()')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            |                   MinE
+
+                    section.col-lg-4.col-md-5.col-sm-6.col-xs-12.search-div.min-height
+                      .row
+                        .well.well-sm.bg-info.text-center
+                          | Percentage Selection
+                      .row
+                        label(style="font-weight: bold; font-size: 16px;") Students must have scored ?
+                        br
+                      .row.clearfix
+                        label.col-md-6.pull-left(style="margin-top: 8px; ") 1. Marks in SSC  (10th)
+                        label.col-md-5.pull-right
+                          .col-md-10
+                            input#ssc.form-control.col-md-5(type='number', name='backlog', value='60', min='40', max='100')
+                          b.col-md-1(style="margin: 7px 0 0 0;") %
+
+                      .row.clearfix
+                        label.col-md-6.pull-left(style="margin-top: 8px; ") 2. Marks in Inter
+                        label.col-md-5.pull-right
+                          .col-md-10
+                            input#inter.form-control.col-md-5(type='number', name='backlog', value='60', min='40', max='100')
+                          b.col-md-1(style="margin: 7px 0 0 0;") %
+
+                      .row.clearfix
+                        label.col-md-6.pull-left(style="margin-top: 8px; ") 3. Marks in Diploma
+                        label.col-md-5.pull-right
+                          .col-md-10
+                            input#diploma.form-control.col-md-5(type='number', name='backlog', value='60', min='40', max='100')
+                          b.col-md-1(style="margin: 7px 0 0 0;") %
+
+                      .row.clearfix
+                        label.col-md-6.pull-left(style="margin-top: 8px; ") 4. Marks in B.tech
+                        label.col-md-5.pull-right
+                          .col-md-10
+                            input#btech.form-control.col-md-5(type='number', name='backlog', value='60', min='40', max='100')
+                          b.col-md-1(style="margin: 7px 0 0 0;") %
+
+
+
+                  .col-md-12.clearfix(style="margin-top: 40px;")
+                    // Backlog Selection
+                    section.col-lg-4.col-md-5.col-sm-6.col-xs-12.search-div.col-md-offset-2.min-height
+                      .row
+                        .well.well-sm.bg-info.text-center Backlog Selection
+                      .row
+                        .material-switch
+                          | Allow Students with Backlog ?
+                          input#backlog-switch(name='backlog-switch', type='checkbox', onclick='backlog_on()')
+                          label.label-info(for='backlog-switch')
+                        br
+                        h4 Backlog Criteria
+                        label#backlog_text.pull-left.text-muted(style='cursor: not-allowed') Maximum backlog allowed
+                        .col-md-3.pull-right
+                          input#backlog_number.form-control(type='number', name='backlog', value='0', min='1', max='10', disabled='true')
+                    // Backlog Selection end
+
+                    // Gender Selection
+                    section.col-lg-4.col-md-5.col-sm-6.col-xs-12.search-div.min-height
+                      .row
+                        .well.well-sm.bg-info.text-center Gender Selection
+                      .row
+                        h4 Gender Criteria
+                        .checkbox
+                          label(style='font-size: 1.0em')
+                            input#male(name='gender', type='checkbox', value='Male')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            | Male 
+                            i.fa.fa-male.fw
+                            br
+                          label(style='font-size: 1.0em')
+                            input#female(name='gender', type='checkbox', value='Female')
+                            span.cr
+                              i.cr-icon.fa.fa-check
+                            | Female 
+                            i.fa.fa-female.fw
+                    // Gender Selection end                
+                    //Package Specifications
+                    section.col-md-offset-4.col-lg-4.col-md-5.col-sm-6.col-xs-12.search-div.min-height
+                      .row
+                        .well.well-sm.bg-info.text-center
+                          | Package 
+                      .row
+                        label(style="font-weight: bold; font-size: 16px;") New Package
+                        br
+                      .row.clearfix
+                        label.col-md-6.pull-left(style="margin-top: 8px; ") Company Offering Package
+                        label.col-md-5.pull-right.clearfix
+                          fieldset.col-md-7
+                            input#package.form-control.col-md-12(type='text', name='backlog', value='0.0', min='1.0', max='100')
+                          span.col-md-5.pull-right(style="margin-top: 8px;") /-  LPA
+
+                  // Get Data Button
+                  center
+                    button.btn#getdata(type='button', name='getdata',style='margin-top: 40px !important; background-color:#B83E44; color:#fff')
+                      i.fa.fa-get-pocket.fw.fa-lg
+                      |  Get Data 
+                    |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    button.btn(type='button',style='margin-top: 40px !important; background-color:#B83E44; color:#fff',onclick="javascript:window.location.reload();")
+                      i.fa.fa-repeat.fw.fa-lg
+                      |  Reset
+                  center                
+                    br
+                    | Note:  If any deviation in the data. Please contact with the Ajivika
+                  // Get Data Button end
+                  div#displaydata
+                    .container
+                      .col-md-12.text-center(style='margin-top: 20px; ')
+                        .col-md-4
+                        .col-md-4(style='border: 1px solid #888; padding: 10px; border-radius: 6px;background-color:white')
+                          label Eligible Students Count
+                          br
+                          h3#count.text-muted.text-info
+                    br  
+                    br
+                    .container(style="width:80%")
+                      .row
+                      .col-md-1
+                      ul.nav.nav-tabs.nav-justified.tab
+                        li.active
+                          button(data-toggle='pill', href='#eligible') Eligible List
+                        li
+                          button(data-toggle='pill', href='#console')  Eligible Console                 
+                      .tab-content
+                        #eligible.tab-pane.fade.align.in.active                        
+                          .col-md-12
+                          .panel.panel-default
+                            .panel-body
+                              .table-responsive
+                                table.example.table.table-striped.table-bordered.table-hover
+                                  thead
+                                    tr
+                                      th.text-center Roll No.
+                                      th.text-center Name
+                                      th.text-center Branch
+                                      th.text-center Phone
+                                      th.text-center Email 
+                                      th.text-center College
+                                      th.text-center Gender                                    
+                                      th.text-center SSC Percent
+                                      th.text-center Inter/Diploma Percent            
+                                      th.text-center Btech Percent
+                                      th.text-center Backlogs
+                        #console.tab-pane.fade.align                        
+                          .col-md-12
+                          .panel.panel-default
+                            .panel-body
+                              .table-responsive
+                                table.example.table.table-striped.table-bordered.table-hover.text-center(data-page-length='25')
+                                  thead
+                                    tr
+                                      th.text-center Branch
+                                      th.text-center AEC
+                                      th.text-center ACET
+                                      th.text-center ACE
+                                      th.text-center Grand Total
+                #fb.tab-pane.fade.align
+                  section#main-content
+                    section.wrapper.site-min-height
+                      .row.mt
+                        .col-lg-12
+                          .tab-content
+                             .col-md-12.clearfix(style='margin-top: 40px;')
+                                section.col-lg-4.col-md-5.col-sm-6.col-xs-12.search-div.col-md-offset-2.min-height
+                                  .row
+                                    .well.well-sm.bg-info.text-center Self Details
+                                  .row
+                                    h4
+                                      b Name
+                                    | Ajivika placement Department
+                                    h4
+                                      b Email
+                                    | placements@aec.edu.in
+                                    h4
+                                      b Contact
+                                    | 9876543210
+                                    h4
+                                      b Address
+                                    | Aditya Nagar,
+                                    |             ADB Road,
+                                    |             Surampalem
+                                    br
+                                    |             533437 
+                                    br
+                                    |             EGDT 
+                                    |             AP
+                                    br
+                                    |             Ph: 9949876662,0884 2326202
+                                    br
+                                    |             Email: office@acet.ac.in
+                                    br
+                                    |             website: www.acet.ac.in
+                                    p
+                                section.col-lg-4.col-md-5.col-sm-6.col-xs-12.search-div.min-height
+                                  form(method='post', action='/feedback2')
+                                    div
+                                      .well.well-sm.bg-info.text-center Feedback
+                                    div
+                                      h4 Name
+                                      input(type='text',name='facultyname' placeholder='enter your name')
+                              
+                                    div
+                                      h4 Email
+                                      input(type='email' name='facultyemail')
+                                    div
+                                      h4 Contact
+                                      input(type='tel' name='facultymobile')
+                                    div
+                                      h4 Feedback
+                                      textarea(rows='6', cols='35',name='feedback', placeholder='enter your feedback')
+                                      button.btn(type='submit', style='margin-top: 40px !important; background-color:#B83E44; color:#fff;') Submit
+
+    script.
+      function college_select_all(){
+      if (document.getElementById('all_colleges').checked) {
+      document.getElementById('aec').checked="true";
+      document.getElementById('acoe').checked="true";
+      document.getElementById('acet').checked="true";
+      }
+      else {
+      document.getElementById('aec').checked=false;
+      document.getElementById('acoe').checked=false;
+      document.getElementById('acet').checked=false;
+      }
+      }
+      
+      function college_selection_single() {
+      //alert('aklfjaksjfdk');
+      var i = document.getElementById('aec');
+      var j = document.getElementById('acoe');
+      var k = document.getElementById('acet');
+      if (i.checked==true && j.checked==true && k.checked==true) {
+      document.getElementById('all_colleges').checked=true;
+      }
+      else if (i.checked==false || j.checked==false || k.checked==false) {
+      document.getElementById('all_colleges').checked=false;
+      }
+      }
+
+      function courses_all_selection(){
+      if (document.getElementById('all_courses').checked) {
+      document.getElementById('civil').checked="true";
+      document.getElementById('eee').checked="true";      
+      document.getElementById('ece').checked="true";
+      document.getElementById('cse').checked="true";
+      document.getElementById('it').checked="true";
+      document.getElementById('me').checked="true";
+      document.getElementById('pt').checked="true";      
+      document.getElementById('mca').checked="true";
+      document.getElementById('agri').checked="true";
+      document.getElementById('min').checked="true";
+      }
+      else {
+      document.getElementById('civil').checked=false;
+      document.getElementById('eee').checked=false;      
+      document.getElementById('ece').checked=false;
+      document.getElementById('cse').checked=false;
+      document.getElementById('it').checked=false;
+      document.getElementById('me').checked=false;
+      document.getElementById('pt').checked=false;      
+      document.getElementById('mca').checked=false;
+      document.getElementById('agri').checked=false;
+      document.getElementById('min').checked=false;
+      }
+      }
+      
+      function course_single_selection() {
+      var a = document.getElementById('civil');
+      var b = document.getElementById('eee');      
+      var d = document.getElementById('ece');
+      var e = document.getElementById('cse');
+      var f = document.getElementById('it');
+      var g = document.getElementById('me');
+      var h = document.getElementById('pt');      
+      var j = document.getElementById('mca');
+      var k = document.getElementById('agri');
+      var l = document.getElementById('min');
+      if (a.checked==true && b.checked==true && d.checked==true && e.checked==true && f.checked==true && g.checked==true && h.checked==true && j.checked==true && k.checked==true && l.checked==true) {
+      document.getElementById('all_courses').checked=true;
+      }
+      else if (a.checked==false || b.checked==false || d.checked==false || e.checked==false || f.checked==false || g.checked==false || h.checked==false || j.checked==false || k.checked==false || l.checked==false) {
+      document.getElementById('all_courses').checked=false;
+      }
+      }
+
+      /*Backlog Function*/
+      function backlog_on(){
+      if(document.getElementById('backlog-switch').checked==true){
+      document.getElementById('backlog_text').className="pull-left";
+      document.getElementById('backlog_text').style="cursor: auto;"
+      document.getElementById('backlog_number').disabled=false;
+      }
+      else {
+      document.getElementById('backlog_number').value='0';
+      document.getElementById('backlog_text').className="pull-left text-muted";
+      document.getElementById('backlog_text').style="cursor: not-allowed;"
+      document.getElementById('backlog_number').disabled=true;
+      }
+      }
+      /*Backlog Function end*/
+    // common script for all pages
+    script(src='javascripts/jquery.js')
+    script(src='javascripts/bootstrap.min.js')
+    script(src='javascripts/jquery-ui-1.9.2.custom.min.js')
+    script(src='javascripts/jquery.ui.touch-punch.min.js')
+    script.include(type='text/javascript', src='javascripts/jquery.dcjqaccordion.2.7.js')
+    script(src='javascripts/jquery.scrollTo.min.js')
+    script(src='javascripts/jquery.nicescroll.js', type='text/javascript')
+    script(src='javascripts/common-scripts.js')
+
+    script(src='https://code.jquery.com/jquery-3.3.1.js')
+    script(src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+    script(src='https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js')
+    script(src='https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js')
+    script(src='https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js')
+    script(src='https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js')
+    script(src='javascripts/cocubes.js')
+    script.
+      $(document).ready(function() {
+        $('.example').DataTable( {
+          dom: 'Bfrtip',
+          buttons: [
+              { extend:'copy', attr: { id: 'allan' } }, 'csv', 'excel', 'pdf', 'print'
+          ]
+        });
+      });
+    
