@@ -14,6 +14,7 @@ html
     link(href='https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css', rel='stylesheet')
     link(href='stylesheets/style.css', rel='stylesheet')
     link(href='stylesheets/style1.css', rel='stylesheet')
+    link(href='stylesheets/graph.css', rel='stylesheet')
     link(href='stylesheets/font-awesome/css/font-awesome.min.css', rel='stylesheet')
     //- //if lt IE 9
     //- script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
@@ -112,6 +113,10 @@ html
               a(data-toggle='tab', href='#home')
                 i.fa.fa-address-card
                 span Home
+            li.sub-menu
+              a(data-toggle='tab', href='#graphs')
+                i.fa.fa-bar-chart
+                span Statistics
             li.sub-menu
               a(data-toggle='tab', href='#fb')
                 i.fa.fa-bars
@@ -538,4 +543,4 @@ html
           ]
         });
       });
-    
+
